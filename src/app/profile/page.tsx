@@ -165,7 +165,7 @@ export default function ProfilePage() {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setOverride((calorieGoal) => Math.max(1200, calorieGoal - 50))}
+              onClick={() => setOverride((prev) => Math.max(1200, (prev ?? autoCalorie) - 50))}
               className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
             >−</button>
             <div className={`flex-1 rounded-xl border py-3 text-center transition-colors ${override !== null ? "border-brand/50 bg-brand/5" : "border-zinc-700 bg-surface-elevated"}`}>
@@ -173,7 +173,7 @@ export default function ProfilePage() {
               <span className="text-xs text-zinc-500 ml-1">kcal/day</span>
             </div>
             <button
-              onClick={() => setOverride((calorieGoal) => Math.min(5000, calorieGoal + 50))}
+              onClick={() => setOverride((prev) => Math.min(5000, (prev ?? autoCalorie) + 50))}
               className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
             >+</button>
           </div>
