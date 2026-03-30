@@ -74,6 +74,20 @@ export default function Dashboard() {
       />
 
       <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-4">
+        {/* Plan My Day CTA */}
+        <Link href="/plan">
+          <div className="rounded-2xl border border-brand/40 bg-brand/10 px-4 py-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs text-brand-light font-medium mb-0.5">AI Scheduler</p>
+              <p className="text-base font-bold text-zinc-100">Plan My Day</p>
+              <p className="text-xs text-zinc-500 mt-0.5">Optimised timeline for today</p>
+            </div>
+            <div className="h-12 w-12 rounded-xl bg-brand/20 flex items-center justify-center text-2xl flex-shrink-0">
+              🧠
+            </div>
+          </div>
+        </Link>
+
         {/* Quick stats row */}
         <div className="grid grid-cols-3 gap-2">
           {[
