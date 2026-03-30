@@ -4,8 +4,8 @@ import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { weeklyPlan, defaultWeekRotation, getWorkoutById, intensityLabel, intensityColor } from "@/lib/data/workouts";
-import type { SleepSchedule } from "@/lib/types";
-import { addMinutes, formatTime } from "@/lib/utils/time";
+import type { SleepSchedule, Shift } from "@/lib/types";
+import { addMinutes, formatTime, formatTime24 } from "@/lib/utils/time";
 
 const DEFAULT_SLEEP: SleepSchedule = {
   bedtime: { hours: 23, minutes: 0 },
@@ -29,9 +29,24 @@ const typeIcon: Record<string, string> = {
 
 export default function GymPage() {
   const [sleep] = useLocalStorage<SleepSchedule>("sb-sleep", DEFAULT_SLEEP);
+  const [shifts] = useLocalStorage<Shift[]>("sb-shifts", []);
 
-  // Recommended gym time: 90 min after wake
-  const recommendedGymTime = addMinutes(sleep.wakeTime, 90);
+  // Find today's shift if any
+  const todayDate = new Date().toISOString().split("T")[0];
+  const todayShift = shifts.find((s) => s.date === todayDate) ?? null;
+
+  // If shift starts within 3h of preferred gym time, push gym after shift
+  const preferredGym = addMinutes(sleep.wakeTime, 90);
+  const recommendedGymTime = (() => {
+    if (!todayShift) return preferredGym;
+    const shiftStartMin = todayShift.startTime.hours * 60 + todayShift.startTime.minutes;
+    const preferredMin = preferredGym.hours * 60 + preferredGym.minutes;
+    // If shift starts within 2.5h of preferred gym time, gym after shift
+    if (Math.abs(shiftStartMin - preferredMin) < 150) {
+      return addMinutes(todayShift.endTime, 45);
+    }
+    return preferredGym;
+  })();
 
   const week = defaultWeekRotation.map((id, i) => ({
     day: DAYS[i],
@@ -96,6 +111,12 @@ export default function GymPage() {
           )}
           {todayWorkout.type === "rest" && (
             <p className="text-sm text-zinc-500">Full rest day. Focus on sleep, hydration, and nutrition.</p>
+          )}
+          {todayShift && (
+            <div className="flex items-center gap-2 text-xs text-zinc-500 pt-1 border-t border-zinc-800/60">
+              <span>🗓</span>
+              <span>Shift today: {formatTime24(todayShift.startTime)} – {formatTime24(todayShift.endTime)} · {todayShift.location}</span>
+            </div>
           )}
         </div>
 

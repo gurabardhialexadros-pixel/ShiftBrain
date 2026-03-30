@@ -7,8 +7,8 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { defaultWeekRotation, getWorkoutById, intensityColor } from "@/lib/data/workouts";
-import type { SleepSchedule } from "@/lib/types";
-import { formatTime, formatDuration, sleepDuration, addMinutes } from "@/lib/utils/time";
+import type { SleepSchedule, Shift } from "@/lib/types";
+import { formatTime, formatDuration, sleepDuration, addMinutes, formatTime24 } from "@/lib/utils/time";
 import { meals } from "@/lib/data/meals";
 
 const typeIcon: Record<string, string> = {
@@ -36,6 +36,7 @@ export default function Dashboard() {
   const [sleep] = useLocalStorage<SleepSchedule>("sb-sleep", DEFAULT_SLEEP);
   const [routineCompleted] = useLocalStorage<Record<string, string[]>>("sb-routine-completed", {});
   const [mealLog] = useLocalStorage<Record<string, string[]>>("sb-meals-log", {});
+  const [shifts] = useLocalStorage<Shift[]>("sb-shifts", []);
 
   const todayWorkout = getWorkoutById(todayWorkoutId);
   const gymTime = addMinutes(sleep.wakeTime, 90);
@@ -56,7 +57,9 @@ export default function Dashboard() {
   const CALORIE_GOAL = 2400;
   const caloriePct = Math.min(100, Math.round((todayCalories / CALORIE_GOAL) * 100));
 
-  const nextShift = { role: "Floor Lead", time: "14:30", location: "Store A" };
+  const nextShift = shifts
+    .filter((s) => s.date >= TODAY_DATE)
+    .sort((a, b) => a.date.localeCompare(b.date) || a.startTime.hours - b.startTime.hours)[0] ?? null;
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">
@@ -190,10 +193,22 @@ export default function Dashboard() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs text-zinc-500 mb-0.5">Next shift</p>
-              <p className="text-sm font-semibold text-zinc-100">{nextShift.role}</p>
-              <p className="text-xs text-zinc-500 mt-0.5">{nextShift.time} · {nextShift.location}</p>
+              {nextShift ? (
+                <>
+                  <p className="text-sm font-semibold text-zinc-100">{nextShift.role}</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">
+                    {formatTime24(nextShift.startTime)} · {nextShift.location}
+                  </p>
+                </>
+              ) : (
+                <p className="text-sm text-zinc-500">No upcoming shifts — add one</p>
+              )}
             </div>
-            <Badge variant="info">Today</Badge>
+            {nextShift && (
+              <Badge variant={nextShift.date === TODAY_DATE ? "info" : "default"}>
+                {nextShift.date === TODAY_DATE ? "Today" : nextShift.date}
+              </Badge>
+            )}
           </Card>
         </Link>
       </main>
