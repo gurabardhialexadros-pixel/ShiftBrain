@@ -69,9 +69,11 @@ export default function Dashboard() {
         title={profile.name ? `Hey, ${profile.name} 👋` : "ShiftBrain"}
         subtitle={dateLabel}
         action={
-          <div className="h-8 w-8 rounded-full bg-surface-card border border-zinc-700 flex items-center justify-center text-base">
-            {profile.avatarEmoji || "💪"}
-          </div>
+          <Link href="/profile">
+            <div className="h-8 w-8 rounded-full bg-surface-card border border-zinc-700 flex items-center justify-center text-base">
+              {profile.avatarEmoji || "💪"}
+            </div>
+          </Link>
         }
       />
 
@@ -196,6 +198,23 @@ export default function Dashboard() {
             <Badge variant={caloriePct >= 80 ? "success" : "warning"}>
               {caloriePct}%
             </Badge>
+          </Card>
+        </Link>
+
+        {/* Weekly summary */}
+        <Link href="/week">
+          <Card className="flex items-center gap-4">
+            <div className="h-11 w-11 rounded-xl bg-violet-900/40 flex items-center justify-center text-xl flex-shrink-0">
+              📊
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-zinc-500 mb-0.5">Last 7 days</p>
+              <p className="text-sm font-semibold text-zinc-100">Weekly Summary</p>
+              <p className="text-xs text-zinc-500 mt-0.5">Routine · Calories · Gym · Shifts</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-zinc-600 flex-shrink-0">
+              <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+            </svg>
           </Card>
         </Link>
 
