@@ -6,6 +6,7 @@ import BottomNav from "@/components/layout/BottomNav";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { meals, getMealsByType } from "@/lib/data/meals";
 import type { Meal } from "@/lib/types";
+import { type UserProfile, DEFAULT_PROFILE } from "@/lib/profile";
 
 const SECTIONS: { type: Meal["type"]; label: string; emoji: string }[] = [
   { type: "pre-workout",  label: "Pre-Workout",  emoji: "⚡" },
@@ -40,6 +41,8 @@ function MacroBar({ protein, carbs, fat }: { protein: number; carbs: number; fat
 
 export default function MealsPage() {
   const [log, setLog] = useLocalStorage<DailyLog>("sb-meals-log", {});
+  const [profile] = useLocalStorage<UserProfile>("sb-profile", DEFAULT_PROFILE);
+  const CALORIE_GOAL = profile.calorieGoal || 2400;
   const todayIds: string[] = log[TODAY] ?? [];
 
   const toggle = (id: string) => {
@@ -71,7 +74,7 @@ export default function MealsPage() {
     [todayMeals]
   );
 
-  const CALORIE_GOAL = 2400;
+  // CALORIE_GOAL set from profile above
   const caloriePct = Math.min(100, Math.round((totals.calories / CALORIE_GOAL) * 100));
 
   return (

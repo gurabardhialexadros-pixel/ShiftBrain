@@ -8,6 +8,7 @@ import Badge from "@/components/ui/Badge";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { defaultWeekRotation, getWorkoutById, intensityColor } from "@/lib/data/workouts";
 import type { SleepSchedule, Shift } from "@/lib/types";
+import { type UserProfile, DEFAULT_PROFILE } from "@/lib/profile";
 import { formatTime, formatDuration, sleepDuration, addMinutes, formatTime24 } from "@/lib/utils/time";
 import { meals } from "@/lib/data/meals";
 
@@ -37,6 +38,7 @@ export default function Dashboard() {
   const [routineCompleted] = useLocalStorage<Record<string, string[]>>("sb-routine-completed", {});
   const [mealLog] = useLocalStorage<Record<string, string[]>>("sb-meals-log", {});
   const [shifts] = useLocalStorage<Shift[]>("sb-shifts", []);
+  const [profile] = useLocalStorage<UserProfile>("sb-profile", DEFAULT_PROFILE);
 
   const todayWorkout = getWorkoutById(todayWorkoutId);
   const gymTime = addMinutes(sleep.wakeTime, 90);
@@ -54,7 +56,7 @@ export default function Dashboard() {
     .filter((m) => todayMealIds.includes(m.id))
     .reduce((s, m) => s + m.calories, 0);
 
-  const CALORIE_GOAL = 2400;
+  const CALORIE_GOAL = profile.calorieGoal || 2400;
   const caloriePct = Math.min(100, Math.round((todayCalories / CALORIE_GOAL) * 100));
 
   const nextShift = shifts
@@ -64,11 +66,11 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen flex-col bg-surface">
       <Header
-        title="ShiftBrain"
+        title={profile.name ? `Hey, ${profile.name} 👋` : "ShiftBrain"}
         subtitle={dateLabel}
         action={
-          <div className="h-8 w-8 rounded-full bg-brand flex items-center justify-center text-xs font-semibold text-white">
-            JD
+          <div className="h-8 w-8 rounded-full bg-surface-card border border-zinc-700 flex items-center justify-center text-base">
+            {profile.avatarEmoji || "💪"}
           </div>
         }
       />
