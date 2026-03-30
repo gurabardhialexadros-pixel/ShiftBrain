@@ -73,7 +73,7 @@ export default function ProfilePage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Profile & Goals" subtitle="Your personalised settings" />
 
-      <main className="flex-1 px-4 py-5 pb-32 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
 
         {/* Avatar + name */}
         <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-4">

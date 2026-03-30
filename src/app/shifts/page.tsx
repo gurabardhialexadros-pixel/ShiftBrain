@@ -96,7 +96,7 @@ export default function ShiftsPage() {
         }
       />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
         {/* Week strip */}
         <div className="flex gap-1.5">
           {week.map(({ label, day, iso, isToday }) => (

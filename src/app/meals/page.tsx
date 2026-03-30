@@ -81,7 +81,7 @@ export default function MealsPage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Meals" subtitle="Tap to log today's food" />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
         {/* Daily Calorie Summary */}
         <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-3">
           <div className="flex items-end justify-between">

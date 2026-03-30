@@ -63,7 +63,7 @@ export default function GymPage() {
         subtitle="Based on your sleep & shift plan"
       />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
         {/* Today's recommendation */}
         <div
           className="rounded-2xl border p-5 space-y-3"

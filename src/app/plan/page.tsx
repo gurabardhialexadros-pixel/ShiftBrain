@@ -60,7 +60,7 @@ export default function PlanPage() {
         subtitle={dateLabel}
       />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
 
         {/* Summary strip */}
         <div className="grid grid-cols-3 gap-2">

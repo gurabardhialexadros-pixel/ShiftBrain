@@ -90,7 +90,7 @@ export default function WeekPage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Weekly Summary" subtitle="Last 7 days" />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
 
         {/* Top stats */}
         <div className="grid grid-cols-2 gap-3">

@@ -49,7 +49,7 @@ export default function SleepPage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Sleep Schedule" subtitle="Drag to adjust your sleep window" />
 
-      <main className="flex-1 px-4 py-6 pb-28 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-6 pb-36 max-w-md mx-auto w-full space-y-6">
         {/* Wheel */}
         <SleepWheel
           bedtime={schedule.bedtime}

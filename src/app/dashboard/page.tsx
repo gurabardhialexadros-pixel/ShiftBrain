@@ -77,7 +77,7 @@ export default function Dashboard() {
         }
       />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-4">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-3">
         {/* Plan My Day CTA */}
         <Link href="/plan">
           <div className="rounded-2xl border border-brand/40 bg-brand/10 px-4 py-4 flex items-center justify-between gap-3">

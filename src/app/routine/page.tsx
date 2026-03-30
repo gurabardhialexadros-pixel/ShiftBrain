@@ -98,7 +98,7 @@ export default function RoutinePage() {
         }
       />
 
-      <main className="flex-1 px-4 py-5 pb-28 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
         {/* Progress bar */}
         <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4">
           <div className="flex items-center justify-between mb-2">
