@@ -33,6 +33,13 @@ export default function SleepPage() {
     [setSchedule]
   );
 
+  const handleBothChange = useCallback(
+    (bed: Time, wake: Time) => {
+      setSchedule((prev) => ({ ...prev, bedtime: bed, wakeTime: wake }));
+    },
+    [setSchedule]
+  );
+
   const actualMins = sleepDuration(schedule.bedtime, schedule.wakeTime);
   const targetMins = schedule.targetHours * 60;
   const diff = actualMins - targetMins;
@@ -55,6 +62,7 @@ export default function SleepPage() {
           bedtime={schedule.bedtime}
           wakeTime={schedule.wakeTime}
           onChange={handleChange}
+          onBothChange={handleBothChange}
         />
 
         {/* Status bar */}

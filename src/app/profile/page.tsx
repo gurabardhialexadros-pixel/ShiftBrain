@@ -71,7 +71,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">
-      <Header title="Profile & Goals" subtitle="Your personalised settings" />
+      <Header title="Profile & Goals" subtitle="Your personalised settings" back />
 
       <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
 

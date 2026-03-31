@@ -88,7 +88,7 @@ export default function WeekPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">
-      <Header title="Weekly Summary" subtitle="Last 7 days" />
+      <Header title="Weekly Summary" subtitle="Last 7 days" back />
 
       <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
 
