@@ -278,7 +278,7 @@ export default function Dashboard() {
         {/* 2-col stat cards */}
         <div className="grid grid-cols-2 gap-[14px]">
           <Link href="/routine"><StatCard icon={<CheckCircleIcon/>} value={`${routinePct}%`} label="Avg. Routine" sub="Daily completion" progress={routinePct}/></Link>
-          <Link href="/meals"><StatCard icon={<ClocheIcon/>} value={todayCalories.toLocaleString()} label="Calories consumed today" sub="Daily completion" progress={caloriePct}/></Link>
+          <Link href="/meals"><StatCard icon={<ClocheIcon/>} value={todayCalories.toLocaleString()} label="Calories consumed" sub="Daily completion" progress={caloriePct}/></Link>
         </div>
 
         {/* Upcoming Sleep */}
