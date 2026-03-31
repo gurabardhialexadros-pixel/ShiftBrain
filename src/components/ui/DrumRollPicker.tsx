@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useCallback, useState } from "react";
 
-const ITEM_H  = 42;   // px per item
+const ITEM_H  = 32;   // px per item
 const VISIBLE = 5;    // must be odd
 
 interface DrumRollPickerProps {
