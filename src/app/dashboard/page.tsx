@@ -236,7 +236,7 @@ export default function Dashboard() {
       {/* Hairline divider */}
       <div className="h-px mx-5 mb-6" style={{ background: "rgba(255,255,255,0.07)" }}/>
 
-      <div className="px-5 space-y-4">
+      <div className="px-5 flex flex-col gap-[14px]">
 
         {/* AI Scheduler */}
         <Link href="/plan">
@@ -276,7 +276,7 @@ export default function Dashboard() {
         </div>
 
         {/* 2-col stat cards */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-[14px]">
           <Link href="/routine"><StatCard icon={<CheckCircleIcon/>} value={`${routinePct}%`} label="Avg. Routine" sub="Daily completion" progress={routinePct}/></Link>
           <Link href="/meals"><StatCard icon={<ClocheIcon/>} value={todayCalories.toLocaleString()} label="Calories consumed today" sub="Daily completion" progress={caloriePct}/></Link>
         </div>
