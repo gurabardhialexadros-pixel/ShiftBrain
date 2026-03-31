@@ -16,9 +16,13 @@ const config: Config = {
           dark: "#4f46e5",
         },
         surface: {
-          DEFAULT: "#0f0f11",
-          card: "#18181b",
-          elevated: "#27272a",
+          DEFAULT: "#000000",
+          card: "#1c1c1e",
+          elevated: "#2c2c2e",
+        },
+        accent: {
+          DEFAULT: "#a3e635",
+          dark: "#84cc16",
         },
       },
       fontFamily: {
