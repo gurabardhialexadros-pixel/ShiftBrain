@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import Button from "@/components/ui/Button";
+import DrumRollPicker from "@/components/ui/DrumRollPicker";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { type UserProfile, DEFAULT_PROFILE, calcCalorieGoal } from "@/lib/profile";
 
@@ -105,23 +106,16 @@ export default function ProfilePage() {
         <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-4">
           <h2 className="text-sm font-semibold text-zinc-300">Body & Goal</h2>
 
-          {/* Weight stepper */}
+          {/* Weight drum picker */}
           <div>
             <p className="text-xs text-zinc-500 mb-2">Body weight</p>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => { setWeight((w) => Math.max(40, w - 1)); setOverride(null); }}
-                className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
-              >−</button>
-              <div className="flex-1 rounded-xl bg-surface-elevated border border-zinc-700 py-2.5 text-center">
-                <span className="text-xl font-bold text-zinc-100">{weight}</span>
-                <span className="text-xs text-zinc-500 ml-1">kg</span>
-              </div>
-              <button
-                onClick={() => { setWeight((w) => Math.min(200, w + 1)); setOverride(null); }}
-                className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
-              >+</button>
-            </div>
+            <DrumRollPicker
+              value={weight}
+              min={40}
+              max={200}
+              unit="kg"
+              onChange={(v) => { setWeight(v); setOverride(null); }}
+            />
           </div>
 
           {/* Goal selector */}

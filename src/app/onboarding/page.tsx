@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import SleepWheel from "@/components/sleep/SleepWheel";
 import Button from "@/components/ui/Button";
+import DrumRollPicker from "@/components/ui/DrumRollPicker";
 import type { SleepSchedule, Time } from "@/lib/types";
 import { type UserProfile, calcCalorieGoal, DEFAULT_PROFILE } from "@/lib/profile";
 
@@ -252,22 +253,15 @@ function StepPersonal({
         </p>
       </div>
 
-      {/* Age */}
-      <div>
-        <p className="text-xs font-medium text-zinc-400 mb-2">Age</p>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setAge(Math.max(16, age - 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
-          >−</button>
-          <div className="flex-1 rounded-2xl bg-surface-card border border-zinc-700 py-3 text-center">
-            <span className="text-2xl font-bold text-zinc-100">{age}</span>
-            <span className="text-sm text-zinc-500 ml-1">yrs</span>
-          </div>
-          <button
-            onClick={() => setAge(Math.min(80, age + 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
-          >+</button>
+      {/* Age + Weight side-by-side drum pickers */}
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <p className="text-xs font-medium text-zinc-400 mb-2">Age</p>
+          <DrumRollPicker value={age} min={16} max={80} unit="yr" onChange={setAge} />
+        </div>
+        <div>
+          <p className="text-xs font-medium text-zinc-400 mb-2">Weight</p>
+          <DrumRollPicker value={weight} min={40} max={200} unit="kg" onChange={setWeight} />
         </div>
       </div>
 
@@ -289,25 +283,6 @@ function StepPersonal({
               {label}
             </button>
           ))}
-        </div>
-      </div>
-
-      {/* Weight */}
-      <div>
-        <p className="text-xs font-medium text-zinc-400 mb-2">Body weight (kg)</p>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setWeight(Math.max(40, weight - 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
-          >−</button>
-          <div className="flex-1 rounded-2xl bg-surface-card border border-zinc-700 py-3 text-center">
-            <span className="text-2xl font-bold text-zinc-100">{weight}</span>
-            <span className="text-sm text-zinc-500 ml-1">kg</span>
-          </div>
-          <button
-            onClick={() => setWeight(Math.min(200, weight + 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
-          >+</button>
         </div>
       </div>
 
