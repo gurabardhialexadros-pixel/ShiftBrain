@@ -12,13 +12,7 @@ export default function Card({
 }: CardProps) {
   return (
     <div
-      className={[
-        "rounded-2xl border border-zinc-800 p-4",
-        elevated ? "bg-surface-elevated" : "bg-surface-card",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["glass-card p-4", className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
