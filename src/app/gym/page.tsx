@@ -63,7 +63,7 @@ export default function GymPage() {
         subtitle="Based on your sleep & shift plan"
       />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
         {/* Today's recommendation */}
         <div
           className="rounded-2xl border p-5 space-y-3"
@@ -129,10 +129,16 @@ export default function GymPage() {
                 key={day}
                 className={[
                   "flex-1 flex flex-col items-center gap-1.5 rounded-xl py-2.5 border transition-colors",
-                  isToday ? "border-brand/50 bg-brand/10" : "border-zinc-800 bg-surface-card",
+                  isToday ? "border-accent/40" : "border-white/[0.07]",
                 ].join(" ")}
+                style={isToday ? {
+                  background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+                } : {
+                  background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                }}
               >
-                <p className={`text-[10px] font-semibold ${isToday ? "text-brand-light" : "text-zinc-500"}`}>
+                <p className={`text-[10px] font-semibold ${isToday ? "text-accent" : "text-zinc-500"}`}>
                   {day}
                 </p>
                 <span className="text-base">{typeIcon[workout.type]}</span>
@@ -152,7 +158,7 @@ export default function GymPage() {
         {todayWorkout.exercises.length > 0 && (
           <section>
             <h2 className="text-sm font-semibold text-zinc-300 mb-3">Exercise List</h2>
-            <div className="rounded-2xl bg-surface-card border border-zinc-800 overflow-hidden divide-y divide-zinc-800">
+            <div className="glass-card overflow-hidden divide-y divide-zinc-800/50">
               {todayWorkout.exercises.map((ex, i) => (
                 <div key={ex.name} className="flex items-center gap-3 px-4 py-3">
                   <span className="text-xs text-zinc-600 w-4 flex-shrink-0">{i + 1}</span>
@@ -180,8 +186,15 @@ export default function GymPage() {
                 key={day}
                 className={[
                   "rounded-2xl border p-4 flex items-center gap-4",
-                  isToday ? "border-brand/40 bg-brand/5" : "border-zinc-800 bg-surface-card",
+                  isToday ? "border-accent/40" : "border-white/[0.07]",
                 ].join(" ")}
+                style={isToday ? {
+                  background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(163,230,53,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                } : {
+                  background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                }}
               >
                 <div
                   className="h-10 w-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
@@ -197,7 +210,7 @@ export default function GymPage() {
                       {workout.name}
                     </p>
                     {isToday && (
-                      <span className="text-[10px] font-semibold text-brand-light bg-brand/20 rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-semibold text-accent bg-accent/15 rounded-full px-2 py-0.5">
                         Today
                       </span>
                     )}

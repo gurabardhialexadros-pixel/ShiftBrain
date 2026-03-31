@@ -98,9 +98,9 @@ export default function RoutinePage() {
         }
       />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
         {/* Progress bar */}
-        <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4">
+        <div className="glass-card p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm font-semibold text-zinc-300">Today's Progress</p>
             <p className="text-sm font-semibold text-zinc-100">
@@ -109,7 +109,7 @@ export default function RoutinePage() {
           </div>
           <div className="h-2 rounded-full bg-zinc-800 overflow-hidden">
             <div
-              className="h-full rounded-full bg-brand transition-all duration-500"
+              className="h-full rounded-full bg-accent transition-all duration-500"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -117,7 +117,7 @@ export default function RoutinePage() {
         </div>
 
         {/* Routine items */}
-        <div className="space-y-2">
+        <div className="flex flex-col gap-2">
           {resolvedItems.map((item, idx) => {
             const done = todayCompleted.includes(item.id);
             const isActive =
@@ -131,11 +131,18 @@ export default function RoutinePage() {
                 className={[
                   "w-full text-left rounded-2xl border p-4 flex items-start gap-3 transition-all",
                   done
-                    ? "bg-zinc-900 border-zinc-800 opacity-60"
+                    ? "border-zinc-800/40 opacity-60"
                     : isActive
-                    ? "bg-surface-card border-brand/50 shadow-[0_0_0_1px_rgba(99,102,241,0.3)]"
-                    : "bg-surface-card border-zinc-800",
+                    ? "border-accent/40 shadow-[0_0_0_1px_rgba(163,230,53,0.15)]"
+                    : "border-white/[0.07]",
                 ].join(" ")}
+                style={done ? { background: "rgba(18,18,20,0.8)" } : isActive ? {
+                  background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(163,230,53,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                } : {
+                  background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                }}
               >
                 {/* Time column */}
                 <div className="flex-shrink-0 w-[52px] text-right">
@@ -155,9 +162,9 @@ export default function RoutinePage() {
                     className={[
                       "h-3 w-3 rounded-full border-2 flex-shrink-0",
                       done
-                        ? "bg-brand border-brand"
+                        ? "bg-accent border-accent"
                         : isActive
-                        ? "bg-transparent border-brand"
+                        ? "bg-transparent border-accent"
                         : "bg-transparent border-zinc-700",
                     ].join(" ")}
                   />
@@ -199,7 +206,7 @@ export default function RoutinePage() {
                   className={[
                     "flex-shrink-0 h-6 w-6 rounded-full border-2 flex items-center justify-center",
                     done
-                      ? "bg-brand border-brand"
+                      ? "bg-accent border-accent"
                       : "border-zinc-700",
                   ].join(" ")}
                 >

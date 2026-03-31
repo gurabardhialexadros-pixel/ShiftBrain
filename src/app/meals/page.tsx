@@ -81,9 +81,9 @@ export default function MealsPage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Meals" subtitle="Tap to log today's food" />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
         {/* Daily Calorie Summary */}
-        <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-3">
+        <div className="glass-card p-4 space-y-3">
           <div className="flex items-end justify-between">
             <div>
               <p className="text-xs text-zinc-500">Calories today</p>
@@ -100,7 +100,7 @@ export default function MealsPage() {
             <div
               className={[
                 "h-full rounded-full transition-all duration-500",
-                caloriePct >= 100 ? "bg-emerald-500" : "bg-brand",
+                caloriePct >= 100 ? "bg-emerald-500" : "bg-accent",
               ].join(" ")}
               style={{ width: `${caloriePct}%` }}
             />
@@ -136,9 +136,16 @@ export default function MealsPage() {
                       className={[
                         "w-full text-left rounded-2xl border p-4 transition-all",
                         selected
-                          ? "bg-brand/10 border-brand/40"
-                          : "bg-surface-card border-zinc-800 hover:border-zinc-700",
+                          ? "border-accent/40"
+                          : "border-white/[0.07]",
                       ].join(" ")}
+                      style={selected ? {
+                        background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+                        boxShadow: "inset 0 1px 0 rgba(163,230,53,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                      } : {
+                        background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                      }}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -172,12 +179,12 @@ export default function MealsPage() {
                       {/* Selected tick */}
                       {selected && (
                         <div className="mt-2 flex items-center gap-1.5">
-                          <div className="h-4 w-4 rounded-full bg-brand flex items-center justify-center">
+                          <div className="h-4 w-4 rounded-full bg-accent flex items-center justify-center">
                             <svg viewBox="0 0 10 8" fill="none" className="h-2.5 w-2.5">
-                              <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M1 4l2.5 2.5L9 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           </div>
-                          <span className="text-xs text-brand-light">Logged for today</span>
+                          <span className="text-xs text-accent">Logged for today</span>
                         </div>
                       )}
                     </button>

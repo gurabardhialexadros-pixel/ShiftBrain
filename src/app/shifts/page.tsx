@@ -96,7 +96,7 @@ export default function ShiftsPage() {
         }
       />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
         {/* Week strip */}
         <div className="flex gap-1.5">
           {week.map(({ label, day, iso, isToday }) => (
@@ -105,22 +105,26 @@ export default function ShiftsPage() {
               className={[
                 "flex flex-1 flex-col items-center gap-1 rounded-xl py-2.5 border transition-colors",
                 isToday
-                  ? "bg-brand border-brand"
-                  : "bg-surface-card border-zinc-800",
+                  ? "bg-accent border-accent"
+                  : "border-white/[0.07]",
               ].join(" ")}
+              style={!isToday ? {
+                background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+              } : undefined}
             >
-              <span className={`text-[10px] font-semibold ${isToday ? "text-white/70" : "text-zinc-500"}`}>
+              <span className={`text-[10px] font-semibold ${isToday ? "text-black/70" : "text-zinc-500"}`}>
                 {label}
               </span>
-              <span className={`text-sm font-bold ${isToday ? "text-white" : "text-zinc-300"}`}>
+              <span className={`text-sm font-bold ${isToday ? "text-black" : "text-zinc-300"}`}>
                 {day}
               </span>
               {/* dot if shift exists */}
               <div
                 className={[
                   "h-1.5 w-1.5 rounded-full",
-                  shiftOnDay(iso) ? "bg-brand-light" : "bg-transparent",
-                  isToday && shiftOnDay(iso) ? "bg-white" : "",
+                  shiftOnDay(iso) ? "bg-accent" : "bg-transparent",
+                  isToday && shiftOnDay(iso) ? "bg-black/60" : "",
                 ].join(" ")}
               />
             </div>
@@ -136,8 +140,8 @@ export default function ShiftsPage() {
               className={[
                 "rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors",
                 filter === tab
-                  ? "bg-brand text-white"
-                  : "bg-surface-card text-zinc-400 border border-zinc-800 hover:text-zinc-200",
+                  ? "bg-accent text-black"
+                  : "text-zinc-400 border border-white/[0.07] hover:text-zinc-200",
               ].join(" ")}
             >
               {tab}
@@ -147,11 +151,11 @@ export default function ShiftsPage() {
 
         {/* Shift list */}
         {filtered.length > 0 ? (
-          <div className="space-y-3">
+          <div className="flex flex-col gap-3">
             {filtered.map((shift) => (
               <div
                 key={shift.id}
-                className="rounded-2xl bg-surface-card border border-zinc-800 p-4"
+                className="glass-card p-4"
               >
                 <div className="flex items-start gap-3">
                   {/* Time column */}
@@ -209,7 +213,7 @@ export default function ShiftsPage() {
         ) : (
           /* Empty state */
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-card border border-zinc-800">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center glass-card">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-zinc-600">
                 <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
               </svg>
@@ -264,7 +268,7 @@ export default function ShiftsPage() {
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setDeleteId(null)}
           />
-          <div className="relative z-10 w-full max-w-sm rounded-2xl bg-surface-card border border-zinc-700 p-6 space-y-4">
+          <div className="relative z-10 w-full max-w-sm glass-card p-6 space-y-4">
             <h3 className="text-base font-semibold text-zinc-100">Delete shift?</h3>
             <p className="text-sm text-zinc-500">This can't be undone.</p>
             <div className="flex gap-3">

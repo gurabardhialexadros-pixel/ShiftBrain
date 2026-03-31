@@ -74,10 +74,10 @@ export default function ProfilePage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Profile & Goals" subtitle="Your personalised settings" back />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-6">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
 
         {/* Avatar + name */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-4">
+        <section className="glass-card p-4 space-y-4">
           <h2 className="text-sm font-semibold text-zinc-300">Identity</h2>
           <div className="flex flex-wrap gap-2">
             {AVATARS.map((e) => (
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                 onClick={() => setAvatar(e)}
                 className={[
                   "h-11 w-11 rounded-xl text-xl flex items-center justify-center border-2 transition-all",
-                  avatar === e ? "border-brand bg-brand/20 scale-110" : "border-zinc-700 bg-surface-elevated",
+                  avatar === e ? "border-accent bg-accent/20 scale-110" : "border-zinc-700 bg-zinc-900/60",
                 ].join(" ")}
               >
                 {e}
@@ -98,12 +98,12 @@ export default function ProfilePage() {
             placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl bg-surface-elevated border border-zinc-700 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-brand"
+            className="w-full rounded-xl bg-zinc-900/60 border border-zinc-700/50 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-accent"
           />
         </section>
 
         {/* Body & goal */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-4">
+        <section className="glass-card p-4 space-y-4">
           <h2 className="text-sm font-semibold text-zinc-300">Body & Goal</h2>
 
           {/* Weight drum picker */}
@@ -126,7 +126,7 @@ export default function ProfilePage() {
                 onClick={() => { setGoal(key); setOverride(null); }}
                 className={[
                   "w-full rounded-xl border px-4 py-3 flex items-center gap-3 text-left transition-all",
-                  goal === key ? color : "border-zinc-800 bg-surface-elevated",
+                  goal === key ? color : "border-zinc-800/50 bg-zinc-900/40",
                 ].join(" ")}
               >
                 <span className="text-xl">{emoji}</span>
@@ -136,7 +136,7 @@ export default function ProfilePage() {
                 </div>
                 <div className={[
                   "h-4 w-4 rounded-full border-2 flex-shrink-0",
-                  goal === key ? "border-brand bg-brand" : "border-zinc-600",
+                  goal === key ? "border-accent bg-accent" : "border-zinc-600",
                 ].join(" ")} />
               </button>
             ))}
@@ -144,13 +144,13 @@ export default function ProfilePage() {
         </section>
 
         {/* Calorie target */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-3">
+        <section className="glass-card p-4 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-zinc-300">Daily Calorie Target</h2>
             {override !== null && (
               <button
                 onClick={() => setOverride(null)}
-                className="text-xs text-brand-light hover:text-brand"
+                className="text-xs text-accent/80 hover:text-accent"
               >
                 Reset to auto
               </button>
@@ -160,15 +160,15 @@ export default function ProfilePage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setOverride((prev) => Math.max(1200, (prev ?? autoCalorie) - 50))}
-              className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
+              className="h-10 w-10 rounded-xl bg-zinc-900/60 border border-zinc-700/50 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-800"
             >−</button>
-            <div className={`flex-1 rounded-xl border py-3 text-center transition-colors ${override !== null ? "border-brand/50 bg-brand/5" : "border-zinc-700 bg-surface-elevated"}`}>
+            <div className={`flex-1 rounded-xl border py-3 text-center transition-colors ${override !== null ? "border-accent/40 bg-accent/5" : "border-zinc-700/50 bg-zinc-900/40"}`}>
               <span className="text-2xl font-bold text-zinc-100">{calorieGoal}</span>
               <span className="text-xs text-zinc-500 ml-1">kcal/day</span>
             </div>
             <button
               onClick={() => setOverride((prev) => Math.min(5000, (prev ?? autoCalorie) + 50))}
-              className="h-10 w-10 rounded-xl bg-surface-elevated border border-zinc-700 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-700"
+              className="h-10 w-10 rounded-xl bg-zinc-900/60 border border-zinc-700/50 text-lg text-zinc-300 flex items-center justify-center hover:bg-zinc-800"
             >+</button>
           </div>
 
@@ -194,7 +194,7 @@ export default function ProfilePage() {
         </section>
 
         {/* Work pattern */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-4">
+        <section className="glass-card p-4 space-y-4">
           <h2 className="text-sm font-semibold text-zinc-300">Work Pattern</h2>
 
           <div>
@@ -206,7 +206,7 @@ export default function ProfilePage() {
                   onClick={() => setRole(r)}
                   className={[
                     "rounded-xl px-3 py-1.5 text-xs font-medium border transition-colors",
-                    role === r ? "bg-brand text-white border-brand" : "bg-surface-elevated text-zinc-400 border-zinc-700",
+                    role === r ? "bg-accent text-black border-accent" : "bg-zinc-900/40 text-zinc-400 border-zinc-700/50",
                   ].join(" ")}
                 >
                   {r}
@@ -224,7 +224,7 @@ export default function ProfilePage() {
                   onClick={() => toggleDay(i)}
                   className={[
                     "flex-1 rounded-xl py-2.5 text-xs font-semibold border transition-colors",
-                    workDays.includes(i) ? "bg-brand text-white border-brand" : "bg-surface-elevated text-zinc-500 border-zinc-700",
+                    workDays.includes(i) ? "bg-accent text-black border-accent" : "bg-zinc-900/40 text-zinc-500 border-zinc-700/50",
                   ].join(" ")}
                 >
                   {day}
@@ -235,7 +235,7 @@ export default function ProfilePage() {
         </section>
 
         {/* Danger zone */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-3">
+        <section className="glass-card p-4 space-y-3">
           <h2 className="text-sm font-semibold text-zinc-300">Account</h2>
           <button
             onClick={resetOnboarding}

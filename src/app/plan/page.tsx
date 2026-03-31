@@ -60,11 +60,11 @@ export default function PlanPage() {
         subtitle={dateLabel}
       />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
 
         {/* Summary strip */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="rounded-2xl bg-surface-card border border-zinc-800 p-3 text-center">
+        <div className="grid grid-cols-3 gap-[14px]">
+          <div className="glass-card p-3 text-center">
             <p className="text-base font-bold text-zinc-100">
               {plan.gymLocation === "none" || plan.gymLocation === "free" && !todayShift
                 ? todayWorkout.type === "rest" ? "Rest" : "Free"
@@ -72,11 +72,11 @@ export default function PlanPage() {
             </p>
             <p className="text-xs text-zinc-500 mt-0.5">Gym slot</p>
           </div>
-          <div className="rounded-2xl bg-surface-card border border-zinc-800 p-3 text-center">
+          <div className="glass-card p-3 text-center">
             <p className="text-base font-bold text-zinc-100">{plan.totalCalories}</p>
             <p className="text-xs text-zinc-500 mt-0.5">kcal planned</p>
           </div>
-          <div className="rounded-2xl bg-surface-card border border-zinc-800 p-3 text-center">
+          <div className="glass-card p-3 text-center">
             <p className="text-base font-bold text-zinc-100">{plan.events.length}</p>
             <p className="text-xs text-zinc-500 mt-0.5">events</p>
           </div>
@@ -167,7 +167,7 @@ export default function PlanPage() {
         </section>
 
         {/* Calorie total */}
-        <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4">
+        <div className="glass-card p-4">
           <div className="flex justify-between items-center mb-2">
             <p className="text-sm font-semibold text-zinc-300">Planned Calories</p>
             <p className="text-sm font-bold text-zinc-100">{plan.totalCalories} / 2400 kcal</p>
