@@ -114,15 +114,15 @@ function StepProfile({
       {/* Emoji avatars */}
       <div>
         <p className="text-xs font-medium text-zinc-500 mb-3">Or choose an avatar</p>
-        <div className="grid grid-cols-6 gap-2">
+        <div className="grid grid-cols-6 gap-1.5">
           {AVATARS.map((e) => (
             <button
               key={e}
               onClick={() => { setAvatar(e); setPhotoUrl(""); }}
               className={[
-                "h-11 w-11 rounded-2xl text-2xl flex items-center justify-center border-2 transition-all",
+                "w-full aspect-square rounded-2xl text-2xl flex items-center justify-center border-2 transition-all",
                 avatar === e && !photoUrl
-                  ? "border-accent bg-accent/15 scale-110"
+                  ? "border-accent shadow-[0_0_0_2px_rgba(163,230,53,0.25)]"
                   : "border-white/[0.07]",
               ].join(" ")}
               style={!(avatar === e && !photoUrl) ? glassStyle : undefined}
