@@ -41,6 +41,12 @@ const DEFAULT_SLEEP: SleepSchedule = {
 
 const TARGET_OPTIONS = [6, 7, 7.5, 8, 8.5, 9];
 
+// shared glass style for inactive cards / buttons
+const glassStyle = {
+  background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+};
+
 // ─── Step 1: Profile ──────────────────────────────────────────────────────────
 
 function StepProfile({
@@ -79,7 +85,8 @@ function StepProfile({
         <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handlePhoto} />
         <button
           onClick={() => fileRef.current?.click()}
-          className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-dashed border-zinc-600 bg-surface-card flex items-center justify-center hover:border-brand transition-colors"
+          className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-dashed border-zinc-600 flex items-center justify-center hover:border-accent transition-colors"
+          style={{ background: "rgba(28,28,30,0.9)" }}
         >
           {photoUrl ? (
             <img src={photoUrl} alt="profile" className="h-full w-full object-cover" />
@@ -115,9 +122,10 @@ function StepProfile({
               className={[
                 "h-11 w-11 rounded-2xl text-2xl flex items-center justify-center border-2 transition-all",
                 avatar === e && !photoUrl
-                  ? "border-brand bg-brand/20 scale-110"
-                  : "border-zinc-700 bg-surface-card",
+                  ? "border-accent bg-accent/15 scale-110"
+                  : "border-white/[0.07]",
               ].join(" ")}
+              style={!(avatar === e && !photoUrl) ? glassStyle : undefined}
             >
               {e}
             </button>
@@ -133,7 +141,8 @@ function StepProfile({
           placeholder="e.g. Jordan"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-2xl bg-surface-card border border-zinc-700 px-4 py-3.5 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-brand"
+          className="w-full rounded-2xl border border-zinc-700/50 px-4 py-3.5 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-accent"
+          style={{ background: "rgba(28,28,30,0.9)" }}
         />
       </div>
     </div>
@@ -171,7 +180,7 @@ function StepSleep({
       <div>
         <h2 className="text-xl font-bold text-zinc-100">Sleep Schedule</h2>
         <p className="text-sm text-zinc-500 mt-1">
-          Drag handles to set your usual sleep window. Drag the <span className="text-brand-light">arc</span> to shift the whole block.
+          Drag handles to set your usual sleep window. Drag the <span className="text-accent">arc</span> to shift the whole block.
         </p>
       </div>
 
@@ -193,9 +202,10 @@ function StepSleep({
               className={[
                 "flex-1 min-w-[52px] rounded-xl py-2 text-xs font-semibold border transition-colors",
                 sleep.targetHours === h
-                  ? "bg-brand text-white border-brand"
-                  : "bg-surface-card text-zinc-400 border-zinc-700",
+                  ? "bg-accent text-black border-accent"
+                  : "border-white/[0.07] text-zinc-400",
               ].join(" ")}
+              style={sleep.targetHours !== h ? glassStyle : undefined}
             >
               {h}h
             </button>
@@ -208,10 +218,12 @@ function StepSleep({
         onClick={() => setRotatingSchedule(!rotatingSchedule)}
         className={[
           "w-full rounded-2xl border p-4 flex items-center gap-4 text-left transition-all",
-          rotatingSchedule
-            ? "border-brand/50 bg-brand/10"
-            : "border-zinc-800 bg-surface-card hover:border-zinc-700",
+          rotatingSchedule ? "border-accent/40" : "border-white/[0.07]",
         ].join(" ")}
+        style={rotatingSchedule ? {
+          background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+          boxShadow: "inset 0 1px 0 rgba(163,230,53,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+        } : glassStyle}
       >
         <span className="text-2xl flex-shrink-0">🔄</span>
         <div className="flex-1 min-w-0">
@@ -220,11 +232,11 @@ function StepSleep({
         </div>
         <div className={[
           "h-6 w-10 rounded-full transition-all flex-shrink-0 relative",
-          rotatingSchedule ? "bg-brand" : "bg-zinc-700",
+          rotatingSchedule ? "bg-accent" : "bg-zinc-700",
         ].join(" ")}>
           <div className={[
-            "absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all",
-            rotatingSchedule ? "left-[18px]" : "left-0.5",
+            "absolute top-0.5 h-5 w-5 rounded-full shadow transition-all",
+            rotatingSchedule ? "left-[18px] bg-black" : "left-0.5 bg-white",
           ].join(" ")} />
         </div>
       </button>
@@ -276,9 +288,10 @@ function StepPersonal({
               className={[
                 "rounded-xl py-2.5 px-3 text-xs font-medium border transition-colors text-left",
                 gender === key
-                  ? "bg-brand text-white border-brand"
-                  : "bg-surface-card text-zinc-400 border-zinc-700 hover:text-zinc-200",
+                  ? "bg-accent text-black border-accent"
+                  : "border-white/[0.07] text-zinc-400",
               ].join(" ")}
+              style={gender !== key ? glassStyle : undefined}
             >
               {label}
             </button>
@@ -296,8 +309,9 @@ function StepPersonal({
               onClick={() => setGoal(key)}
               className={[
                 "w-full rounded-2xl border p-4 flex items-center gap-4 text-left transition-all",
-                goal === key ? color : "bg-surface-card border-zinc-800 hover:border-zinc-700",
+                goal === key ? color : "border-white/[0.07]",
               ].join(" ")}
+              style={goal !== key ? glassStyle : undefined}
             >
               <span className="text-2xl">{emoji}</span>
               <div className="flex-1">
@@ -306,11 +320,11 @@ function StepPersonal({
               </div>
               <div className={[
                 "h-5 w-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
-                goal === key ? "border-brand bg-brand" : "border-zinc-600",
+                goal === key ? "border-accent bg-accent" : "border-zinc-600",
               ].join(" ")}>
                 {goal === key && (
                   <svg viewBox="0 0 10 8" fill="none" className="h-2.5 w-2.5">
-                    <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M1 4l2.5 2.5L9 1" stroke="black" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </div>
@@ -320,7 +334,8 @@ function StepPersonal({
       </div>
 
       {/* Calorie preview */}
-      <div className="rounded-2xl bg-emerald-900/20 border border-emerald-800/40 px-4 py-3 flex items-center justify-between">
+      <div className="rounded-2xl border border-emerald-800/40 px-4 py-3 flex items-center justify-between"
+        style={{ background: "linear-gradient(160deg, rgba(6,40,26,0.9) 0%, rgba(4,28,18,0.95) 100%)", boxShadow: "inset 0 1px 0 rgba(52,211,153,0.08)" }}>
         <div>
           <p className="text-xs text-zinc-500">Daily calorie target</p>
           <p className="text-[10px] text-zinc-600 mt-0.5">Refined by activity on next step</p>
@@ -359,15 +374,17 @@ function StepLifestyle({
         <div className="flex items-center gap-3">
           <button
             onClick={() => setTrainingDays(Math.max(1, trainingDays - 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
+            className="h-11 w-11 rounded-xl border border-zinc-700/50 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-800 transition-colors"
+            style={{ background: "rgba(28,28,30,0.9)" }}
           >−</button>
-          <div className="flex-1 rounded-2xl bg-surface-card border border-zinc-700 py-3 text-center">
+          <div className="flex-1 rounded-2xl border border-white/[0.07] py-3 text-center" style={glassStyle}>
             <span className="text-2xl font-bold text-zinc-100">{trainingDays}</span>
             <span className="text-sm text-zinc-500 ml-1">days</span>
           </div>
           <button
             onClick={() => setTrainingDays(Math.min(7, trainingDays + 1))}
-            className="h-11 w-11 rounded-xl bg-surface-elevated border border-zinc-700 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-700 transition-colors"
+            className="h-11 w-11 rounded-xl border border-zinc-700/50 text-xl text-zinc-300 flex items-center justify-center hover:bg-zinc-800 transition-colors"
+            style={{ background: "rgba(28,28,30,0.9)" }}
           >+</button>
         </div>
         <p className="text-xs text-zinc-600 mt-1.5 text-center">
@@ -385,8 +402,9 @@ function StepLifestyle({
               onClick={() => setActivityLevel(key)}
               className={[
                 "w-full rounded-2xl border p-4 flex items-center gap-4 text-left transition-all",
-                activityLevel === key ? color : "bg-surface-card border-zinc-800 hover:border-zinc-700",
+                activityLevel === key ? color : "border-white/[0.07]",
               ].join(" ")}
+              style={activityLevel !== key ? glassStyle : undefined}
             >
               <span className="text-2xl flex-shrink-0">{emoji}</span>
               <div className="flex-1">
@@ -395,11 +413,11 @@ function StepLifestyle({
               </div>
               <div className={[
                 "h-5 w-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
-                activityLevel === key ? "border-brand bg-brand" : "border-zinc-600",
+                activityLevel === key ? "border-accent bg-accent" : "border-zinc-600",
               ].join(" ")}>
                 {activityLevel === key && (
                   <svg viewBox="0 0 10 8" fill="none" className="h-2.5 w-2.5">
-                    <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M1 4l2.5 2.5L9 1" stroke="black" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </div>
@@ -409,14 +427,15 @@ function StepLifestyle({
       </div>
 
       {/* Final calorie summary */}
-      <div className="rounded-2xl bg-brand/10 border border-brand/30 px-4 py-4 space-y-1">
+      <div className="rounded-2xl border border-accent/25 px-4 py-4 space-y-1"
+        style={{ background: "linear-gradient(160deg, rgba(42,46,28,0.9) 0%, rgba(22,24,14,0.95) 100%)", boxShadow: "inset 0 1px 0 rgba(163,230,53,0.08)" }}>
         <p className="text-xs text-zinc-500">Your personalised daily calorie target</p>
-        <p className="text-3xl font-bold text-brand-light">{finalCalories} <span className="text-base font-normal text-zinc-500">kcal / day</span></p>
+        <p className="text-3xl font-bold text-accent">{finalCalories} <span className="text-base font-normal text-zinc-500">kcal / day</span></p>
         <p className="text-[10px] text-zinc-600">Adjust anytime in Profile</p>
       </div>
 
       {/* What ShiftBrain will do */}
-      <div className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-2.5">
+      <div className="glass-card p-4 space-y-2.5">
         <p className="text-xs font-semibold text-zinc-400">ShiftBrain will:</p>
         {[
           "Schedule gym sessions around your shifts",
@@ -425,7 +444,7 @@ function StepLifestyle({
           "Track weekly routine and progress",
         ].map((item) => (
           <div key={item} className="flex items-center gap-2.5">
-            <div className="h-1.5 w-1.5 rounded-full bg-brand flex-shrink-0" />
+            <div className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
             <p className="text-xs text-zinc-400">{item}</p>
           </div>
         ))}
@@ -508,7 +527,7 @@ export default function OnboardingPage() {
             key={i}
             className={[
               "h-1 flex-1 rounded-full transition-all duration-400",
-              i < step ? "bg-brand" : i === step ? "bg-brand-light" : "bg-zinc-800",
+              i < step ? "bg-accent" : i === step ? "bg-accent/60" : "bg-zinc-800",
             ].join(" ")}
           />
         ))}
