@@ -90,17 +90,17 @@ export default function WeekPage() {
     <div className="flex min-h-screen flex-col bg-surface">
       <Header title="Weekly Summary" subtitle="Last 7 days" back />
 
-      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full space-y-5">
+      <main className="flex-1 px-4 py-5 pb-36 max-w-md mx-auto w-full flex flex-col gap-[14px]">
 
         {/* Top stats */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-[14px]">
           {[
             { label: "Avg Routine",  value: `${avgRoutine}%`,            sub: "daily completion",  ok: avgRoutine >= 50,  emoji: "✅" },
             { label: "Avg Calories", value: `${avgCalories.toLocaleString()}`, sub: `goal ${CALORIE_GOAL}`, ok: avgCalories >= CALORIE_GOAL * 0.7, emoji: "🍽️" },
             { label: "Sleep",        value: formatDuration(sleepMins),    sub: `target ${sleep.targetHours}h`, ok: sleepOk, emoji: "🌙" },
             { label: "Shifts",       value: `${shiftCount}`,             sub: "this week",          ok: true,              emoji: "💼" },
           ].map(({ label, value, sub, ok, emoji }) => (
-            <div key={label} className="rounded-2xl bg-surface-card border border-zinc-800 p-4">
+            <div key={label} className="glass-card p-4">
               <div className="flex items-start justify-between">
                 <span className="text-xl">{emoji}</span>
                 <span className={`text-xs font-semibold ${ok ? "text-emerald-400" : "text-amber-400"}`}>
@@ -117,23 +117,30 @@ export default function WeekPage() {
         {/* Day-by-day heatmap */}
         <section>
           <h2 className="text-sm font-semibold text-zinc-300 mb-3">Day by Day</h2>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             {days.map((day) => (
               <div
                 key={day.date}
                 className={[
                   "rounded-2xl border p-4 space-y-3",
-                  day.today ? "border-brand/40 bg-brand/5" : "border-zinc-800 bg-surface-card",
+                  day.today ? "border-accent/40" : "border-white/[0.07]",
                 ].join(" ")}
+                style={day.today ? {
+                  background: "linear-gradient(160deg, rgba(55,58,48,0.88) 0%, rgba(28,30,22,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(163,230,53,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                } : {
+                  background: "linear-gradient(160deg, rgba(50,50,53,0.88) 0%, rgba(28,28,30,0.94) 55%, rgba(18,18,20,1) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 20px rgba(0,0,0,0.4)",
+                }}
               >
                 {/* Header row */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <p className={`text-sm font-semibold ${day.today ? "text-brand-light" : "text-zinc-300"}`}>
+                    <p className={`text-sm font-semibold ${day.today ? "text-accent" : "text-zinc-300"}`}>
                       {day.label}
                     </p>
                     {day.today && (
-                      <span className="text-[10px] font-semibold bg-brand/20 text-brand-light rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-semibold bg-accent/15 text-accent rounded-full px-2 py-0.5">
                         Today
                       </span>
                     )}
@@ -163,7 +170,7 @@ export default function WeekPage() {
                     </div>
                     <div className="h-1.5 rounded-full bg-zinc-800 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-brand transition-all"
+                        className="h-full rounded-full bg-accent transition-all"
                         style={{ width: `${day.routinePct}%` }}
                       />
                     </div>
@@ -209,12 +216,12 @@ export default function WeekPage() {
         </section>
 
         {/* Weekly gym breakdown */}
-        <section className="rounded-2xl bg-surface-card border border-zinc-800 p-4 space-y-3">
+        <section className="glass-card p-4 space-y-3">
           <h2 className="text-sm font-semibold text-zinc-300">This Week's Gym Plan</h2>
           <div className="flex gap-1.5">
             {days.map((day) => (
               <div key={day.date} className="flex-1 flex flex-col items-center gap-1.5">
-                <p className={`text-[10px] font-semibold ${day.today ? "text-brand-light" : "text-zinc-600"}`}>
+                <p className={`text-[10px] font-semibold ${day.today ? "text-accent" : "text-zinc-600"}`}>
                   {day.label}
                 </p>
                 <div
@@ -235,7 +242,7 @@ export default function WeekPage() {
         </section>
 
         {/* Quick links */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-[14px]">
           {[
             { href: "/plan",    label: "Plan Today",  emoji: "🧠" },
             { href: "/profile", label: "Edit Goals",  emoji: "⚙️" },
@@ -243,7 +250,7 @@ export default function WeekPage() {
             <Link
               key={href}
               href={href}
-              className="rounded-2xl bg-surface-card border border-zinc-800 p-4 flex items-center gap-3 hover:border-zinc-700 transition-colors"
+              className="glass-card p-4 flex items-center gap-3 hover:border-white/[0.12] transition-all"
             >
               <span className="text-xl">{emoji}</span>
               <p className="text-sm font-medium text-zinc-300">{label}</p>
